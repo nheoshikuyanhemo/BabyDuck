@@ -1583,7 +1583,7 @@ library SafeMathUint {
 /////////// Tokens /////////////
 ////////////////////////////////
 
-contract WIZEToken is ERC20, Ownable {
+contract BabyDuckChain is ERC20, Ownable {
     using SafeMath for uint256;
 
     IUniswapV2Router02 public uniswapV2Router;
@@ -1596,13 +1596,13 @@ contract WIZEToken is ERC20, Ownable {
     bool public tradingIsEnabled = false;
     bool public rewardEnable = true;
 
-    WIZETokenDividendTracker public dividendTracker;
+    BabyDuckChainDividendTracker public dividendTracker;
 
     address public teamWallet;
     address public marketingWallet;
     address public treasurywallet;
 
-    uint256 public swapTokensAtAmount = 100000000000 * (10**9);
+    uint256 public swapTokensAtAmount = 10000000000000 * (10**18);
 
     // buy fees
     uint256 public buyDividendRewardsFee = 13;
@@ -1676,15 +1676,15 @@ contract WIZEToken is ERC20, Ownable {
         address indexed processor
     );
 
-    constructor() ERC20("Wize", "WIZE") {
-        dividendTracker = new WIZETokenDividendTracker();
+    constructor() ERC20("BabyDuckChain", "BDC") {
+        dividendTracker = new BabyDuckChainDividendTracker();
 
-        teamWallet = 0x9A24337BbF6A553182692b5B9d20BC6818b1d853;
-        treasurywallet = 0x9cEc888042De4BF5941608B30A3dA50A39FCF9a5;
-        marketingWallet = 0x4d9811c62a3C9299aae9CA573727b3f7c8730989;
+        teamWallet = 0xc2851645221181df6Ab00D90C548a57C28c30e8d;
+        treasurywallet = 0xc2851645221181df6Ab00D90C548a57C28c30e8d;
+        marketingWallet = 0xc2851645221181df6Ab00D90C548a57C28c30e8d;
 
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(
-            0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24 
+            0x4change this 
         ); //0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
         // Create a uniswap pair for this new token
         address _uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
@@ -1712,7 +1712,7 @@ contract WIZEToken is ERC20, Ownable {
             _mint is an internal function in ERC20.sol that is only called here,
             and CANNOT be called ever again
         */
-        _mint(owner(), 1000000000000000 * (10**9));
+        _mint(owner(), 100000000000000000 * (10**18));
     }
 
     receive() external payable {}
@@ -1742,7 +1742,7 @@ contract WIZEToken is ERC20, Ownable {
             "H4G: The dividend tracker already has that address"
         );
 
-        WIZETokenDividendTracker newDividendTracker = WIZETokenDividendTracker(
+        BabyDuckChainDividendTracker newDividendTracker = WIZETokenDividendTracker(
             payable(newAddress)
         );
 
@@ -2243,7 +2243,7 @@ contract WIZEToken is ERC20, Ownable {
     }
 }
 
-contract WIZETokenDividendTracker is DividendPayingToken, Ownable {
+contract BabyDuckChainDividendTracker is DividendPayingToken, Ownable {
     using SafeMath for uint256;
     using SafeMathInt for int256;
     using IterableMapping for IterableMapping.Map;
