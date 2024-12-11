@@ -1739,16 +1739,16 @@ contract BabyDuckChain is ERC20, Ownable {
     function updateDividendTracker(address newAddress) public onlyOwner {
         require(
             newAddress != address(dividendTracker),
-            "H4G: The dividend tracker already has that address"
+            "BDC: The dividend tracker already has that address"
         );
 
-        BabyDuckChainDividendTracker newDividendTracker = WIZETokenDividendTracker(
+        BabyDuckChainDividendTracker newDividendTracker = BabyDuckChainDividendTracker(
             payable(newAddress)
         );
 
         require(
             newDividendTracker.owner() == address(this),
-            "H4G: The new dividend tracker must be owned by the H4G token contract"
+            "BDC: The new dividend tracker must be owned by the BDC token contract"
         );
 
         newDividendTracker.excludeFromDividends(address(newDividendTracker));
@@ -1807,7 +1807,7 @@ contract BabyDuckChain is ERC20, Ownable {
     function updateUniswapV2Router(address newAddress) public onlyOwner {
         require(
             newAddress != address(uniswapV2Router),
-            "H4G: The router already has that address"
+            "BDC: The router already has that address"
         );
         emit UpdateUniswapV2Router(newAddress, address(uniswapV2Router));
         uniswapV2Router = IUniswapV2Router02(newAddress);
@@ -1835,7 +1835,7 @@ contract BabyDuckChain is ERC20, Ownable {
     function excludeFromFees(address account, bool excluded) public onlyOwner {
         require(
             _isExcludedFromFees[account] != excluded,
-            "H4G: Account is already the value of 'excluded'"
+            "BDC: Account is already the value of 'excluded'"
         );
         _isExcludedFromFees[account] = excluded;
 
@@ -1859,7 +1859,7 @@ contract BabyDuckChain is ERC20, Ownable {
     {
         require(
             pair != uniswapV2Pair,
-            "H4G: The PancakeSwap pair cannot be removed from automatedMarketMakerPairs"
+            "BDC: The PancakeSwap pair cannot be removed from automatedMarketMakerPairs"
         );
 
         _setAutomatedMarketMakerPair(pair, value);
@@ -1868,7 +1868,7 @@ contract BabyDuckChain is ERC20, Ownable {
     function _setAutomatedMarketMakerPair(address pair, bool value) private {
         require(
             automatedMarketMakerPairs[pair] != value,
-            "H4G: Automated market maker pair is already set to that value"
+            "BDC: Automated market maker pair is already set to that value"
         );
         automatedMarketMakerPairs[pair] = value;
 
@@ -1882,11 +1882,11 @@ contract BabyDuckChain is ERC20, Ownable {
     function updateGasForProcessing(uint256 newValue) public onlyOwner {
         require(
             newValue >= 200000 && newValue <= 500000,
-            "H4G: gasForProcessing must be between 200,000 and 500,000"
+            "BDC: gasForProcessing must be between 200,000 and 500,000"
         );
         require(
             newValue != gasForProcessing,
-            "H4G: Cannot update gasForProcessing to same value"
+            "BDC: Cannot update gasForProcessing to same value"
         );
         emit GasForProcessingUpdated(newValue, gasForProcessing);
         gasForProcessing = newValue;
@@ -1911,8 +1911,8 @@ contract BabyDuckChain is ERC20, Ownable {
 
     // Add the updateDividendTokenAddress function
     function updateDividendTokenAddress(address newDividendToken) public onlyOwner {
-        require(newDividendToken != _dividendToken, "WIZE: The dividend token already has that address");
-        require(newDividendToken != address(0), "WIZE: The new dividend token is the zero address");
+        require(newDividendToken != _dividendToken, "BDC: The dividend token already has that address");
+        require(newDividendToken != address(0), "BDC: The new dividend token is the zero address");
 
         address oldDividendToken = _dividendToken;
         _dividendToken = newDividendToken;
@@ -2269,7 +2269,7 @@ contract BabyDuckChainDividendTracker is DividendPayingToken, Ownable {
     );
 
     constructor()
-        DividendPayingToken("H4G_Dividend_Tracker", "H4G_Dividend_Tracker")
+        DividendPayingToken("BDC_Dividend_Tracker", "BDC_Dividend_Tracker")
     {
         claimWait = 3600;
         minimumTokenBalanceForDividends = 10000 * (10**9); //must hold 10000+ tokens
@@ -2280,13 +2280,13 @@ contract BabyDuckChainDividendTracker is DividendPayingToken, Ownable {
         address,
         uint256
     ) internal pure override {
-        require(false, "H4G_Dividend_Tracker: No transfers allowed");
+        require(false, "BDC_Dividend_Tracker: No transfers allowed");
     }
 
     function withdrawDividend() public pure override {
         require(
             false,
-            "H4G_Dividend_Tracker: withdrawDividend disabled. Use the 'claim' function on the main H4G contract."
+            "BDC_Dividend_Tracker: withdrawDividend disabled. Use the 'claim' function on the main H4G contract."
         );
     }
 
@@ -2315,11 +2315,11 @@ contract BabyDuckChainDividendTracker is DividendPayingToken, Ownable {
     function updateClaimWait(uint256 newClaimWait) external onlyOwner {
         require(
             newClaimWait >= 3600 && newClaimWait <= 86400,
-            "H4G_Dividend_Tracker: claimWait must be updated to between 1 and 24 hours"
+            "BDC_Dividend_Tracker: claimWait must be updated to between 1 and 24 hours"
         );
         require(
             newClaimWait != claimWait,
-            "H4G_Dividend_Tracker: Cannot update claimWait to same value"
+            "BDC_Dividend_Tracker: Cannot update claimWait to same value"
         );
         emit ClaimWaitUpdated(newClaimWait, claimWait);
         claimWait = newClaimWait;
