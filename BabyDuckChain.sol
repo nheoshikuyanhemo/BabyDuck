@@ -1680,12 +1680,12 @@ contract BabyDuckChain is ERC20, Ownable {
         dividendTracker = new BabyDuckChainDividendTracker();
 
         teamWallet = 0xc2851645221181df6Ab00D90C548a57C28c30e8d;
-        treasurywallet = 0xc2851645221181df6Ab00D90C548a57C28c30e8d;
-        marketingWallet = 0xc2851645221181df6Ab00D90C548a57C28c30e8d;
+        treasurywallet = 0x70A938e8d5109c60D540BCa812E672d01Fa1Dda0;
+        marketingWallet = 0x77A81eF079419a127256C78f1Cbbfc24d15782Aa;
 
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(
-            0x4change this 
-        ); //0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
+            0x2626664c2603336E57B271c5C0b26F421741e481
+        ); //0x70A938e8d5109c60D540BCa812E672d01Fa1Dda0
         // Create a uniswap pair for this new token
         address _uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
             .createPair(address(this), _uniswapV2Router.WETH());
